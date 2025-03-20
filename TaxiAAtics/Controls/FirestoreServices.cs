@@ -4,13 +4,6 @@ using System.Reflection;
 
 namespace TaxiAAtics.Controls
 {
-    using Google.Cloud.Firestore;
-    using Google.Apis.Auth.OAuth2;
-    using Grpc.Core;
-    using System.IO;
-    using System.Reflection;
-    using System.Threading.Tasks;
-
     public class FirestoreService
     {
         private FirestoreDb _db;
@@ -66,5 +59,6 @@ namespace TaxiAAtics.Controls
             return _db.Collection(collectionName);
         }
     }
+
 }
 

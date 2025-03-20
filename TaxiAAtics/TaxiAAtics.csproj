@@ -74,7 +74,6 @@
 	<ItemGroup>
 	  <None Remove="Sys\" />
 	  <None Remove="Controls\" />
-	  <None Remove="Resources\taatcs.json" />
 	  <None Remove="Resources\Fonts\BoringBold.ttf" />
 	  <None Remove="Resources\Fonts\BS.ttf" />
 	  <None Remove="Resources\Fonts\BSS.ttf" />
@@ -87,15 +86,12 @@
 	  <None Remove="Resources\Fonts\MaterialIconsSharp.otf" />
 	  <None Remove="Models\" />
 	  <None Remove="Resources\datacd.json" />
+	  <None Remove="Resources\taatcs.json" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Sys\" />
 	  <Folder Include="Controls\" />
 	  <Folder Include="Models\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <EmbeddedResource Include="Resources\taatcs.json" />
-	  <EmbeddedResource Include="Resources\datacd.json" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Include="Resources\Fonts\BoringBold.ttf" />
@@ -115,8 +111,12 @@
 	  <BundleResource Include="Resources\Fonts\UR.ttf" />
 	  <BundleResource Include="Resources\Images\icon.png" />
 	  <BundleResource Include="Resources\Fonts\MaterialIconsSharp.otf" />
+	  <BundleResource Include="Resources\taatcs.json" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Include="..\.editorconfig" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\datacd.json" />
 	</ItemGroup>
 </Project>
