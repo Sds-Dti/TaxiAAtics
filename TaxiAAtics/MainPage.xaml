@@ -1,0 +1,754 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+
+             xmlns:mapsui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
+
+             x:Class="TaxiAAtics.MainPage">
+
+    <Grid>
+        <Grid RowDefinitions="*" ColumnDefinitions="Auto,*" BackgroundColor="#161717">
+
+        <!--Control Menu-->
+        <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="#161717" BorderColor="Transparent" VerticalOptions="Fill">
+            <StackLayout>
+                <!-- Header -->
+                <Frame BackgroundColor="#222323" BorderColor="#222323" Padding="0" CornerRadius="15">
+                    <Grid ColumnDefinitions="Auto,Auto" Margin="10">
+                        <Frame Grid.Column="0" Padding="0">
+                            <Image Source="icon" HeightRequest="50" WidthRequest="50" Aspect="Fill"/>
+                        </Frame>
+                        <StackLayout Grid.Column="1" Margin="10,0" VerticalOptions="Center">
+                            <Label Text="Control" FontFamily="BB" TextColor="White"/>
+                            <Label Text="Taxi Campeche" FontFamily="R" TextColor="White" FontSize="14"/>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+
+                <BoxView BackgroundColor="#222323" HeightRequest="2" Margin="0,20,0,10"/>
+
+                <!-- Opciones del menú -->
+                <Frame x:Name="BnServicios" BackgroundColor="#222323" BorderColor="#222323" Padding="0" CornerRadius="10" Margin="0,10,0,10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMenu" CommandParameter="Servicios"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,Auto" Margin="10">
+                        <Frame Grid.Column="0" HeightRequest="25" WidthRequest="25"/>
+                        <StackLayout Grid.Column="1" Margin="10,0" VerticalOptions="Center">
+                            <Label x:Name="LblServicios" Text="Servicios" FontFamily="BB" TextColor="White"/>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+
+                <Frame x:Name="BnConfiguraciones" IsVisible="False" BackgroundColor="#222323" BorderColor="#222323" Padding="0" CornerRadius="10" Margin="0,0,0,10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMenu" CommandParameter="Configuraciones"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,Auto" Margin="10">
+                        <Frame Grid.Column="0" HeightRequest="25" WidthRequest="25"/>
+                        <StackLayout Grid.Column="1" Margin="10,0" VerticalOptions="Center">
+                            <Label x:Name="LblConfiguraciones" Text="Configuraciones" FontFamily="BB" TextColor="White"/>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+
+                <BoxView BackgroundColor="#222323" HeightRequest="2" Margin="0,10,0,10"/>
+
+                <Frame x:Name="BnNotificaciones" BackgroundColor="#222323" BorderColor="#222323" Padding="0" CornerRadius="10" Margin="0,10,0,10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMenu" CommandParameter="Notificaciones"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,Auto" Margin="10">
+                        <Frame Grid.Column="0" HeightRequest="25" WidthRequest="25"/>
+                        <StackLayout Grid.Column="1" Margin="10,0" VerticalOptions="Center">
+                            <Label x:Name="LblNotificaciones" Text="Notificaciones" FontFamily="BB" TextColor="White"/>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+
+                <Frame x:Name="BnSoporte" BackgroundColor="#222323" BorderColor="#222323" Padding="0" CornerRadius="10" Margin="0,0,0,10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMenu" CommandParameter="Soporte"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,Auto" Margin="10">
+                        <Frame Grid.Column="0" HeightRequest="25" WidthRequest="25"/>
+                        <StackLayout Grid.Column="1" Margin="10,0" VerticalOptions="Center">
+                            <Label x:Name="LblSoporte" Text="Soporte" FontFamily="BB" TextColor="White"/>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+
+                <BoxView BackgroundColor="#222323" HeightRequest="2" Margin="0,10,0,10"/>
+
+                <Frame x:Name="BnSistema" IsVisible="False" BackgroundColor="#222323" BorderColor="#222323" Padding="0" CornerRadius="10" Margin="0,10,0,10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMenu" CommandParameter="Sistema"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,Auto" Margin="10">
+                        <Frame Grid.Column="0" HeightRequest="25" WidthRequest="25"/>
+                        <StackLayout Grid.Column="1" Margin="10,0" VerticalOptions="Center">
+                            <Label x:Name="LblSistema" Text="Sistema" FontFamily="BB" TextColor="White"/>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+
+                <Frame x:Name="BnAutomatizacion" BackgroundColor="#222323" BorderColor="#222323" Padding="0" CornerRadius="10" Margin="0,0,0,10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMenu" CommandParameter="Automatizacion"/>
+                    </Frame.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto,Auto" Margin="10">
+                        <Frame Grid.Column="0" HeightRequest="25" WidthRequest="25"/>
+                        <StackLayout Grid.Column="1" Margin="10,0" VerticalOptions="Center">
+                            <Label x:Name="LblAutomatizacion" Text="Automatizacion" FontFamily="BB" TextColor="White"/>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+
+            </StackLayout>
+        </Frame>
+
+        <!--Control Principal-->
+        <Frame x:Name="VistaServicios" Grid.Row="0" Grid.Column="1" Padding="0" BorderColor="Transparent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid RowDefinitions="*" ColumnDefinitions="Auto,*">
+                <StackLayout Grid.Column="0" Grid.Row="0" Margin="20,10,20,10">
+                    <Label Text="Servicios" FontFamily="BB" FontSize="20"/>
+                    <Frame Padding="0" CornerRadius="15" Margin="0,20,0,10">
+                        <Grid Margin="10">
+                            <Frame HeightRequest="25" WidthRequest="25" HorizontalOptions="Start">
+
+
+                            </Frame>
+
+                            <Entry Margin="30,0,0,0"/>
+
+                        </Grid>
+
+                    </Frame>
+
+                    <Frame CornerRadius="15" Padding="0">
+                        <Grid RowDefinitions="Auto" ColumnDefinitions="*,*,*" Margin="5">
+        
+                            <!-- Disponibles -->
+                            <Frame x:Name="BnDispo" CornerRadius="15" Grid.Column="0" BackgroundColor="#B2264E" BorderColor="Transparent" Margin="0,0,5,0" Padding="0">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnFrameTapped" CommandParameter="BnDispo"/>
+                                </Frame.GestureRecognizers>
+                                <HorizontalStackLayout Margin="10">
+                                    <Label x:Name="LblDispo" Text="Disponibles" FontFamily="BB" VerticalOptions="Center" TextColor="White"/>
+                                    <Frame Padding="0" WidthRequest="30" HeightRequest="30" BackgroundColor="#eaebeb" BorderColor="#eaebeb" InputTransparent="True">
+                                        <Label x:Name="NumDispo" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="BB"/>
+                                    </Frame>
+                                </HorizontalStackLayout>
+                            </Frame>
+
+                            <!-- En espera -->
+                            <Frame x:Name="BnEnEspe" CornerRadius="15" Grid.Column="1" BackgroundColor="#fbfafb" BorderColor="Transparent" Margin="0,0,5,0" Padding="0">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnFrameTapped" CommandParameter="BnEnEspe"/>
+                                </Frame.GestureRecognizers>
+                                <HorizontalStackLayout Margin="10">
+                                    <Label x:Name="LblEnEspe" Text="En espera" FontFamily="BB" VerticalOptions="Center" TextColor="Black"/>
+                                    <Frame Padding="0" WidthRequest="30" HeightRequest="30" BackgroundColor="#eaebeb" BorderColor="#eaebeb" InputTransparent="True">
+                                        <Label x:Name="NumEnEspe" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="BB"/>
+                                    </Frame>
+                                </HorizontalStackLayout>
+                            </Frame>
+
+                            <!-- En tránsito -->
+                            <Frame x:Name="BnEnTransi" CornerRadius="15" Grid.Column="2" BackgroundColor="#fbfafb" BorderColor="Transparent" Margin="0,0,0,0" Padding="0">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnFrameTapped" CommandParameter="BnEnTransi"/>
+                                </Frame.GestureRecognizers>
+                                <HorizontalStackLayout Margin="10">
+                                    <Label x:Name="LblEnTransi" Text="En transito" FontFamily="BB" VerticalOptions="Center" TextColor="Black"/>
+                                    <Frame Padding="0" WidthRequest="30" HeightRequest="30" BackgroundColor="#eaebeb" BorderColor="#eaebeb" InputTransparent="True">
+                                        <Label x:Name="NumEnTransi" Text="10" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="BB"/>
+                                    </Frame>
+                                </HorizontalStackLayout>
+                            </Frame>
+                        </Grid>
+                    </Frame>
+
+                    <!--<Frame CornerRadius="15" Padding="0">
+                        <Grid RowDefinitions="Auto" ColumnDefinitions="*,*,*" Margin="5">
+                            <Frame x:Name="BnDispo" CornerRadius="15" Grid.Column="0" Grid.Row="0" BackgroundColor="#B2264E" BorderColor="Transparent" Margin="0,0,5,0" Padding="0">
+                                <HorizontalStackLayout Margin="10">
+                                    <Label Text="Disponibles" FontFamily="BB" VerticalOptions="Center" TextColor="White"/>
+                                    <Frame Padding="0" WidthRequest="30" HeightRequest="30" BackgroundColor="#eaebeb" BorderColor="#eaebeb">
+                                        <Label Text="6" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="BB"/>
+
+                                    </Frame>
+                                </HorizontalStackLayout>
+
+                            </Frame>
+                            <Frame x:Name="BnEnEspe" CornerRadius="15" Grid.Column="1" Grid.Row="0" BackgroundColor="#fbfafb" BorderColor="Transparent" Margin="0,0,5,0" Padding="0">
+                                <HorizontalStackLayout Margin="10">
+                                    <Label Text="En espera" FontFamily="BB" VerticalOptions="Center"/>
+                                    <Frame Padding="0" WidthRequest="30" HeightRequest="30" BackgroundColor="#eaebeb" BorderColor="#eaebeb">
+                                        <Label Text="22" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="BB"/>
+
+                                    </Frame>
+                                </HorizontalStackLayout>
+
+                            </Frame>
+                            <Frame x:Name="BnEnTransi" CornerRadius="15" Grid.Column="2" Grid.Row="0" BackgroundColor="#fbfafb" BorderColor="Transparent" Margin="0,0,0,0" Padding="0">
+                                <HorizontalStackLayout Margin="10">
+                                    <Label Text="En transito" FontFamily="BB" VerticalOptions="Center"/>
+                                    <Frame Padding="0" WidthRequest="30" HeightRequest="30" BackgroundColor="#eaebeb" BorderColor="#eaebeb">
+                                        <Label Text="10" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="BB"/>
+
+                                    </Frame>
+                                </HorizontalStackLayout>
+
+                            </Frame>
+                            
+
+                        </Grid>
+
+                    </Frame>-->
+
+                    <!--<Frame BackgroundColor="#fbfafb" CornerRadius="15">
+                        <StackLayout>
+                            <Grid RowDefinitions="Auto" ColumnDefinitions="Auto,Auto,*">
+                                <Frame Grid.Column="0" Grid.Row="0" Padding="0" CornerRadius="10" IsClippedToBounds="True">
+                                    <Image Source="icon" HeightRequest="30" WidthRequest="30"/>
+                                </Frame>
+                                <Label Grid.Column="1" Grid.Row="0" Text="#NumService" FontFamily="BB"
+                                       VerticalOptions="Center" HorizontalOptions="Center" Margin="10,0,10,0"/>
+                                <Frame Grid.Column="2" Grid.Row="0" BackgroundColor="#e3edf9" BorderColor="#499cfc"
+                                       Padding="0" VerticalOptions="Center" HorizontalOptions="End">
+
+                                    <Label Text="En transito" TextColor="#499cfc" Margin="5"/>
+                                </Frame>
+                            </Grid>
+
+                            <Grid RowDefinitions="Auto" ColumnDefinitions="Auto,*,Auto" Margin="0,10,0,0">
+                                <Frame Grid.Column="0" Grid.Row="0" Padding="3" CornerRadius="10" IsClippedToBounds="True" HorizontalOptions="Start"
+                                       HeightRequest="20" WidthRequest="20">
+                                    <Frame BackgroundColor="Black" BorderColor="Transparent">
+
+
+                                    </Frame>
+                                </Frame>
+                                <Slider Grid.Column="1" Grid.Row="0" HeightRequest="2" MinimumTrackColor="Black" Value="70" MaximumTrackColor="White"
+                                        ThumbColor="#B2264E" BackgroundColor="#eaebeb"
+                                       VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="10,0,10,0"/>
+                                <Frame Grid.Column="2" Grid.Row="0" Padding="3" CornerRadius="10" IsClippedToBounds="True" HorizontalOptions="End"
+                                       HeightRequest="20" WidthRequest="20">
+                                    <Frame BackgroundColor="#eaebeb" BorderColor="Transparent">
+
+
+                                    </Frame>
+                                </Frame>
+                            </Grid>
+
+                            <Grid Margin="0,10,-20,0" HorizontalOptions="FillAndExpand">
+                                <Label HorizontalOptions="Start" WidthRequest="180" FontFamily="R"
+                                       Text="Carlos Gutierrez MacGregor #17, Ciudad Concordia"/>
+                                <Label HorizontalOptions="End" WidthRequest="180" FontFamily="R"
+                                       Text="Carlos Gutierrez MacGregor #17, Ciudad Concordia"/>
+
+                            </Grid>
+
+                            <Border Margin="0,10,0,10" BackgroundColor="#eaebeb"/>
+
+                            <Grid RowDefinitions="Auto" ColumnDefinitions="Auto,*,Auto" VerticalOptions="Center">
+                                <Frame Grid.Column="0" Grid.Row="0" Padding="0" CornerRadius="10" IsClippedToBounds="True">
+                                    <Image Source="icon" HeightRequest="30" WidthRequest="30"/>
+                                </Frame>
+                                <Label Grid.Column="1" Grid.Row="0" Text="Francisco Manzanilla" FontFamily="BB"
+                                       VerticalOptions="Center" HorizontalOptions="Start" Margin="10,0,10,0"/>
+                                <Grid Grid.Column="2" Grid.Row="0" RowDefinitions="Auto" ColumnDefinitions="Auto,Auto">
+
+                                    <ImageButton Grid.Column="0" Padding="5" HorizontalOptions="Center" VerticalOptions="Center" 
+                                        Clicked="Chat" IsVisible="true" HeightRequest="30" WidthRequest="30"
+                                        CornerRadius="25" BackgroundColor="#B2264E" Margin="0">
+                                        <ImageButton.Source>
+                                            <FontImageSource FontFamily="M" Glyph="&#xe0ca;" Size="20" Color="White"/>
+                                        </ImageButton.Source>
+                                    </ImageButton>
+                                    <ImageButton Grid.Column="1" Padding="5" HorizontalOptions="Center" VerticalOptions="Center" 
+                                        Clicked="Chat" IsVisible="true" HeightRequest="30" WidthRequest="30"
+                                        CornerRadius="15" BackgroundColor="#B2264E" Margin="5,0,0,0">
+                                        <ImageButton.Source>
+                                            <FontImageSource FontFamily="M" Glyph="&#xe569;" Size="20" Color="White"/>
+                                        </ImageButton.Source>
+                                    </ImageButton>
+
+                                </Grid>
+                            </Grid>
+
+                        </StackLayout>
+
+                    </Frame>-->
+
+                    <CollectionView x:Name="ServiciosLs" Margin="0,10,0,0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ContentView>
+                                            <Grid WidthRequest="399" Margin="0,0,0,10">
+                                                <Frame BackgroundColor="#fbfafb" CornerRadius="15" HorizontalOptions="FillAndExpand">
+                                                    <StackLayout>
+                                                        <Grid RowDefinitions="Auto" ColumnDefinitions="Auto,Auto,*">
+                                                            <Frame Grid.Column="0" Grid.Row="0" Padding="0" CornerRadius="10" IsClippedToBounds="True">
+                                                                <Image Source="icon" HeightRequest="30" WidthRequest="30"/>
+                                                            </Frame>
+                                                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding idService}" FontFamily="BB"
+                                                                   VerticalOptions="Center" HorizontalOptions="Center" Margin="10,0,10,0"/>
+                                                            <Frame Grid.Column="2" Grid.Row="0" BackgroundColor="#e3edf9" BorderColor="#499cfc"
+                                                                   Padding="0" VerticalOptions="Center" HorizontalOptions="End">
+
+                                                                <Label Text="{Binding Estado}" TextColor="#499cfc" Margin="5"/>
+                                                            </Frame>
+                                                        </Grid>
+
+                                                        <Grid RowDefinitions="Auto" ColumnDefinitions="Auto,*,Auto" Margin="0,10,0,0">
+                                                            <Frame Grid.Column="0" Grid.Row="0" Padding="3" CornerRadius="10" IsClippedToBounds="True" HorizontalOptions="Start"
+                                                                   HeightRequest="20" WidthRequest="20">
+                                                                <Frame BackgroundColor="Black" BorderColor="Transparent">
+
+
+                                                                </Frame>
+                                                            </Frame>
+                                                            <Slider Grid.Column="1" Grid.Row="0" HeightRequest="2" MinimumTrackColor="Black" Value="70" MaximumTrackColor="White"
+                                                                    ThumbColor="#B2264E" BackgroundColor="#eaebeb"
+                                                                   VerticalOptions="Center" HorizontalOptions="FillAndExpand" Margin="10,0,10,0"/>
+                                                            <Frame Grid.Column="2" Grid.Row="0" Padding="3" CornerRadius="10" IsClippedToBounds="True" HorizontalOptions="End"
+                                                                   HeightRequest="20" WidthRequest="20">
+                                                                <Frame BackgroundColor="#eaebeb" BorderColor="Transparent">
+
+
+                                                                </Frame>
+                                                            </Frame>
+                                                        </Grid>
+
+                                                        <!--<Grid Margin="0,10,-20,0" HorizontalOptions="FillAndExpand">
+                                                            <Label HorizontalOptions="Start" WidthRequest="180" FontFamily="R"
+                                                                   Text="{Binding DireccionUsr}"/>
+                                                            <Label HorizontalOptions="End" WidthRequest="180" FontFamily="R"
+                                                                   Text="{Binding DireccionDest}" />
+
+                                                        </Grid>-->
+
+                                                        <Border Margin="0,10,0,10" BackgroundColor="#eaebeb"/>
+
+                                                        <Grid RowDefinitions="Auto" ColumnDefinitions="Auto,*,Auto" VerticalOptions="Center" HeightRequest="32">
+                                                            <Frame Grid.Column="0" Grid.Row="0" Padding="0" CornerRadius="10" IsClippedToBounds="True">
+                                                                <Image Source="icon" HeightRequest="30" WidthRequest="30"/>
+                                                            </Frame>
+                                                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding Nombre}" FontFamily="BB"
+                                                                   VerticalOptions="Center" HorizontalOptions="Start" Margin="10,0,10,0"/>
+                                                            <Grid Grid.Column="2" Grid.Row="0" RowDefinitions="Auto" ColumnDefinitions="Auto,Auto">
+
+                                                                <!-- Botón de chat -->
+                                                                <Frame Grid.Column="0" Padding="0" CornerRadius="15" IsClippedToBounds="True" BackgroundColor="#B2264E"
+                                                                       HeightRequest="30" WidthRequest="31" HorizontalOptions="Center" VerticalOptions="Center">
+                                                                    <ImageButton Clicked="Chat" IsVisible="true" Padding="5" BackgroundColor="Transparent">
+                                                                        <ImageButton.Source>
+                                                                            <FontImageSource FontFamily="M" Glyph="&#xe0ca;" Size="20" Color="White"/>
+                                                                        </ImageButton.Source>
+                                                                    </ImageButton>
+                                                                </Frame>
+
+                                                                <!-- Botón de navegación -->
+                                                                <Frame Grid.Column="1" Padding="0" CornerRadius="15" IsClippedToBounds="True" BackgroundColor="#B2264E"
+                                                                       HeightRequest="30" WidthRequest="31" HorizontalOptions="Center" VerticalOptions="Center" Margin="5,0,0,0">
+                                                                    <ImageButton Clicked="Chat" IsVisible="true" Padding="5" BackgroundColor="Transparent">
+                                                                        <ImageButton.Source>
+                                                                            <FontImageSource FontFamily="M" Glyph="&#xe569;" Size="20" Color="White"/>
+                                                                        </ImageButton.Source>
+                                                                    </ImageButton>
+                                                                </Frame>
+
+                                                            </Grid>
+                                                        </Grid>
+
+                                                    </StackLayout>
+                                                    <Frame.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="ObtenerData"/>
+
+                                                </Frame.GestureRecognizers>
+                                                </Frame>
+
+                                            </Grid>
+                                        </ContentView>
+
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                </StackLayout>
+                <Frame Grid.Column="1" Grid.Row="0" Padding="0" Margin="0,10,10,10" BorderColor="Transparent" CornerRadius="30">
+                    <Grid>
+                        <maps:Map x:Name="MapaSv"/>
+                        <Frame x:Name="DataView" IsVisible="False" VerticalOptions="Start" BackgroundColor="#fbfafb" BorderColor="Transparent"
+                               HorizontalOptions="Start" Margin="20" CornerRadius="15" Padding="15" InputTransparent="False">
+                            <StackLayout>
+                                <Grid ColumnDefinitions="*,Auto,Auto,Auto,Auto,Auto" RowDefinitions="Auto">
+                                <Label Grid.Column="0" Text="{Binding idService}" FontFamily="BB" VerticalOptions="Center" />
+
+                                <!-- Primer botón con Frame -->
+                                <Frame Grid.Column="1" Grid.Row="0" Padding="0" HeightRequest="20" WidthRequest="20" CornerRadius="15" BackgroundColor="Transparent" Margin="5,0,0,0" HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="Chat"/>
+                                    </Frame.GestureRecognizers>
+                                    <Image Source="{FontImageSource FontFamily='M', Glyph='&#xe2e7;', Size=50, Color=Black}" />
+                                </Frame>
+
+                                <!-- Segundo botón con Frame -->
+                                <Frame Grid.Column="2" Padding="0" HeightRequest="20" WidthRequest="20" CornerRadius="15" BackgroundColor="Transparent" Margin="5,0,0,0" HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="Chat"/>
+                                    </Frame.GestureRecognizers>
+                                    <Image Source="{FontImageSource FontFamily='M', Glyph='&#xe173;', Size=50, Color=Black}" />
+                                </Frame>
+
+                                <!-- Tercer botón con Frame -->
+                                <Frame Grid.Column="3" Padding="0" HeightRequest="20" WidthRequest="20" CornerRadius="15" BackgroundColor="Transparent" Margin="5,0,0,0" HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="Chat"/>
+                                    </Frame.GestureRecognizers>
+                                    <Image Source="{FontImageSource FontFamily='M', Glyph='&#xe872;', Size=50, Color=Black}" />
+                                </Frame>
+
+                                <Border Grid.Column="4" BackgroundColor="#eaebeb" />
+
+                                <!-- Botón de cierre con Frame -->
+                                <Frame Grid.Column="5" Grid.Row="0"
+                                       Padding="0" HeightRequest="20" WidthRequest="20" CornerRadius="15" BackgroundColor="Transparent" Margin="5,0,0,0" HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="CerrarData"/>
+                                    </Frame.GestureRecognizers>
+                                    <Image Source="{FontImageSource FontFamily='M', Glyph='&#xe5c9;', Size=30, Color=Black}" />
+                                </Frame>
+                            </Grid>
+                                <Frame CornerRadius="15" Padding="0" Margin="0,10,0,10">
+                                    <Grid RowDefinitions="Auto" ColumnDefinitions="*,*" Margin="5">
+                                        <Frame x:Name="BnBiaje" Grid.Column="0" Grid.Row="0" BackgroundColor="#B2264E" BorderColor="Transparent" Margin="0,0,5,0" Padding="0">
+                                            <Label Text="Viaje" FontFamily="BB" VerticalOptions="Center" TextColor="White" Margin="5" HorizontalOptions="Center"/>
+
+                                            <Frame.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="MostrarDatos"/>
+
+                                                </Frame.GestureRecognizers>
+                                        </Frame>
+                                        <Frame x:Name="BnTraye" Grid.Column="1" Grid.Row="0" BackgroundColor="#fbfafb" BorderColor="Transparent" Margin="0,0,5,0" Padding="0">
+                                            <Label Text="Trayecto" FontFamily="BB" VerticalOptions="Center" Margin="5" HorizontalOptions="Center"/>
+
+                                            <Frame.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="MostrarDatos"/>
+
+                                            </Frame.GestureRecognizers>
+                                        </Frame>
+                            
+
+                                    </Grid>
+
+                                </Frame>
+                                <Frame x:Name="VistaDatosViaje" WidthRequest="300">
+                                    <StackLayout>
+                                        <Grid ColumnDefinitions="Auto,*" Margin="0,0,0,10">
+                                            <Label Grid.Column="0" Text="Fecha" IsVisible="False" FontFamily="R" HorizontalOptions="Start"/>
+                                            <Label Grid.Column="1" Text="{Binding Creado}" FontFamily="BB" HorizontalOptions="End"/>
+
+                                        </Grid>
+                                        <Grid ColumnDefinitions="Auto,*" Margin="0,0,0,10">
+                                            <Label Grid.Column="0" Text="Usuario" FontFamily="R" HorizontalOptions="Start"/>
+                                            <Label Grid.Column="1" Text="{Binding Nombre}" FontFamily="BB" HorizontalOptions="End"/>
+
+                                        </Grid>
+                                        <Border Margin="0,0,0,10"/>
+                                        <Grid ColumnDefinitions="*,*" Margin="0,0,0,10">
+                                            <Label Grid.Column="0" Text="Recoger en" FontFamily="R" HorizontalOptions="Start"/>
+                                            <Label Grid.Column="1" Text="{Binding DireccionUsr}" Margin="0,0,-10,0"
+                                                   FontFamily="BB" HorizontalOptions="End"/>
+
+                                        </Grid>
+                                        <Grid ColumnDefinitions="*,*" Margin="0,0,0,10">
+                                            <Label Grid.Column="0" Text="Llevar a" FontFamily="R" HorizontalOptions="Start"/>
+                                            <Label Grid.Column="1" Text="{Binding DireccionDest}" Margin="0,0,-10,0"
+                                                   FontFamily="BB" HorizontalOptions="End"/>
+
+                                        </Grid>
+                                        <Border Margin="0,0,0,10"/>
+
+                                        <Grid ColumnDefinitions="Auto,*" Margin="0,0,0,10">
+                                            <Label Grid.Column="0" Text="Conductor" FontFamily="R" HorizontalOptions="Start"/>
+                                            <Label Grid.Column="1" Text="{Binding Conductor}" FontFamily="BB" HorizontalOptions="End"/>
+
+                                        </Grid>
+                                        <Grid ColumnDefinitions="Auto,*" Margin="0,0,0,10">
+                                            <Label Grid.Column="0" Text="Asociacion" FontFamily="R" HorizontalOptions="Start"/>
+                                            <Label Grid.Column="1" Text="Desconocida" FontFamily="BB" HorizontalOptions="End"/>
+
+                                        </Grid>
+                                        <Grid ColumnDefinitions="Auto,*" Margin="0,0,0,10">
+                                            <Label Grid.Column="0" Text="Placas" FontFamily="R" HorizontalOptions="Start"/>
+                                            <Label Grid.Column="1" Text="Desconocida" FontFamily="BB" HorizontalOptions="End"/>
+
+                                        </Grid>
+                                        <Grid ColumnDefinitions="Auto,*" Margin="0,0,0,10">
+                                            <Label Grid.Column="0" Text="Vehiculo" FontFamily="R" HorizontalOptions="Start"/>
+                                            <Label Grid.Column="1" Text="Desconocido" FontFamily="BB" HorizontalOptions="End"/>
+
+                                        </Grid>
+                                        <Grid ColumnDefinitions="Auto,*" Margin="0,0,0,10">
+                                            <Label Grid.Column="0" Text="Numero Economico" FontFamily="R" HorizontalOptions="Start"/>
+                                            <Label Grid.Column="1" Text="Desconocido" FontFamily="BB" HorizontalOptions="End"/>
+
+                                        </Grid>
+
+                                    </StackLayout>
+
+                                </Frame>
+                            </StackLayout>
+
+                        </Frame>
+                        <Frame CornerRadius="15" Padding="0" Margin="10" HorizontalOptions="End" VerticalOptions="Start">
+                            <Grid RowDefinitions="Auto" ColumnDefinitions="*,Auto" Margin="5">
+        
+                                <!-- Botón Satélite -->
+                                <Frame x:Name="BnSate" Grid.Column="0" Grid.Row="0" BackgroundColor="#fbfafb" BorderColor="Transparent" Margin="0,0,5,0" Padding="0">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="MapaTipo" CommandParameter="Satelite"/>
+                                    </Frame.GestureRecognizers>
+                                    <Label x:Name="LblSate" Text="Satelite" FontFamily="BB" VerticalOptions="Center" Margin="5" HorizontalOptions="Center"/>
+                                </Frame>
+
+                                <!-- Botón Direcciones -->
+                                <Frame x:Name="BnDirec" Grid.Column="1" Grid.Row="0" BackgroundColor="#B2264E" BorderColor="Transparent" Margin="0,0,5,0" Padding="0">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="MapaTipo" CommandParameter="Direcciones"/>
+                                    </Frame.GestureRecognizers>
+                                    <Label x:Name="LblDirec" Text="Direcciones" TextColor="White" FontFamily="BB" VerticalOptions="Center" Margin="5" HorizontalOptions="Center"/>
+                                </Frame>
+
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </Frame>
+            </Grid>
+
+        </Frame>
+        
+        <!--Notificaciones-->
+        <Frame x:Name="VistaNotificaciones" IsVisible="False" Grid.Row="0" Grid.Column="1" Padding="0" BorderColor="Transparent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid>
+                <StackLayout Margin="20,10,20,0" >
+                <Label Text="Notificaciones" FontFamily="BB" FontSize="20"/>
+                <Label x:Name="Aviso" Text="¡Las notificacion automaticas son para los servicios!" TextColor="#B2264E" FontFamily="R" FontSize="16"/>
+                <Frame BorderColor="#B2264E" Margin="0,10,0,0">
+                    <ScrollView>
+                        <StackLayout>
+                            <Label Text="Notificaciones automaticas" FontFamily="BB" FontSize="16" TextColor="Black"/>
+                            <Switch IsToggled="False" HorizontalOptions="Start" Toggled="OnAsignacionToggled" />
+                            <Label Text="Enviar notificaciones Generales" FontFamily="BB" FontSize="16" TextColor="Black" />
+                            <Frame Margin="10">
+                                <StackLayout>
+                                    <Label Text="Titulo" FontFamily="BB"/>
+                                    <Entry TextColor="Black" Placeholder="Anuncio....."/>
+                                    <Label Text="Mensaje" FontFamily="BB"/>
+                                    <Entry TextColor="Black" Placeholder="El sistema de notificaciones informa....."/>
+                                    <Label Text="Este mensaje sera enviado a todos los conductores" FontFamily="R"/>
+                                    <Button Text="Enviar" BackgroundColor="#B2264E" TextColor="White" HorizontalOptions="Center"/>
+                                </StackLayout>
+                            </Frame>
+                            <Label Text="Enviar Notificacion Privada" FontFamily="BB" FontSize="16" TextColor="Black" />
+                            <Label Text="Este mensaje sera enviado a un conductor en especificio de la lista de activos" FontFamily="R"/>
+                            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                                <CollectionView x:Name="Conductores" Grid.Row="0" Grid.Column="0" HeightRequest="300"
+                                                Margin="0,10,0,0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ContentView>
+                                            <Grid WidthRequest="399" Margin="0,0,0,10">
+                                                <Frame BackgroundColor="#fbfafb" CornerRadius="15" HorizontalOptions="FillAndExpand">
+                                                    <StackLayout>
+                                                        <Grid RowDefinitions="Auto" ColumnDefinitions="Auto,Auto,*">
+                                                            <Frame Grid.Column="0" Grid.Row="0" Padding="0" CornerRadius="10" IsClippedToBounds="True">
+                                                                <Image Source="icon" HeightRequest="30" WidthRequest="30"/>
+                                                            </Frame>
+                                                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding Nombre}" FontFamily="BB"
+                                                                   VerticalOptions="Center" HorizontalOptions="Center" Margin="10,0,10,0"/>
+                                                        </Grid>
+
+                                                        <!--<Grid Margin="0,10,-20,0" HorizontalOptions="FillAndExpand">
+                                                            <Label HorizontalOptions="Start" WidthRequest="180" FontFamily="R"
+                                                                   Text="{Binding DireccionUsr}"/>
+                                                            <Label HorizontalOptions="End" WidthRequest="180" FontFamily="R"
+                                                                   Text="{Binding DireccionDest}" />
+
+                                                        </Grid>-->
+
+                                                    </StackLayout>
+                                                    <Frame.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="GetConductor"/>
+
+                                                </Frame.GestureRecognizers>
+                                                </Frame>
+
+                                            </Grid>
+                                        </ContentView>
+
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                                <Frame Grid.Column="1" Grid.Row="0" Margin="20,20,0,0">
+                                <StackLayout>
+                                    <Label Text="Destinatario" FontFamily="BB"/>
+                                    <Label x:Name="CDestina" Text="" FontFamily="BB" FontSize="18"/>
+                                    <Label Text="Titulo" FontFamily="BB"/>
+                                    <Entry x:Name="CTitulo" TextColor="Black" Placeholder="Anuncio....."/>
+                                    <Label Text="Mensaje" FontFamily="BB"/>
+                                    <Entry x:Name="CMensaje" TextColor="Black" Placeholder="El sistema de notificaciones informa....."/>
+                                    <Label Text="Token" FontFamily="BB"/>
+                                    <Entry x:Name="CToken" TextColor="Black" Placeholder="" IsEnabled="False"/>
+                                    <Label Text="Este mensaje sera enviado a todos los conductores" FontFamily="R"/>
+                                    <Button Text="Enviar" BackgroundColor="#B2264E" Clicked="EnviarNt" TextColor="White" HorizontalOptions="Center"/>
+                                </StackLayout>
+                            </Frame>
+                            </Grid>
+                    </StackLayout>
+                    </ScrollView>
+
+                </Frame>
+            </StackLayout>
+
+            </Grid>
+        </Frame>
+
+        <Frame x:Name="VistaConfiguraciones" IsVisible="False" Grid.Row="0" Grid.Column="1" Padding="0" BorderColor="Transparent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid>
+                <Label Text="Confi"/>
+
+            </Grid>
+
+        </Frame>
+
+        <Frame x:Name="VistaSoporte" IsVisible="False" Grid.Row="0" Grid.Column="1" Padding="0" BorderColor="Transparent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid>
+                <Label Text="Aquí va un chat de soporte, solo que no se donde esta" FontSize="40" Margin="20" FontFamily="BB"/>
+
+            </Grid>
+
+        </Frame>
+
+        <Frame x:Name="VistaSistema" IsVisible="False" Grid.Row="0" Grid.Column="1" Padding="0" BorderColor="Transparent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid>
+            <StackLayout Margin="20,10,20,0" >
+                <Label Text="Sistema" FontFamily="BB" FontSize="20"/>
+                <Label Text="Configuracion" FontFamily="R" FontSize="16"/>
+                <Frame BorderColor="#B2264E" Margin="0,20,0,0">
+                    <StackLayout>
+                        <Label Text="" FontFamily="BB" FontSize="16" TextColor="Black"/>
+
+                        <Label Text="Asignacion activa" FontFamily="BB" FontSize="16" TextColor="Black" />
+                        <Switch IsToggled="False" HorizontalOptions="Start" Toggled="OnAsignacionToggled" />
+
+                        <Label Text="Reasignacion activa" FontFamily="BB" FontSize="16" TextColor="Black" />
+                        <Switch IsToggled="False" HorizontalOptions="Start" Toggled="OnReasignacionToggled" />
+
+                        <Label Text="Prueba de red" FontFamily="BB" FontSize="16" TextColor="Black"/>
+                    </StackLayout>
+
+                </Frame>
+            </StackLayout>
+
+            </Grid>
+
+        </Frame>
+
+        <Frame x:Name="VistaAutomatizacion" IsVisible="False" Grid.Row="0" Grid.Column="1" Padding="0" BorderColor="Transparent" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <StackLayout Margin="20,10,20,0" >
+                <Label Text="Automatizacion del sistema" FontFamily="BB" FontSize="20"/>
+                <Label Text="Instrucciones asignadas" FontFamily="R" FontSize="16"/>
+                <Frame BorderColor="#B2264E" Margin="0,20,0,0">
+                    <StackLayout>
+                        <Label Text="Tiempo de respuesta en reasignacion" FontFamily="BB" FontSize="16" TextColor="Black"/>
+                        <HorizontalStackLayout Margin="10">
+                            <Button x:Name="TSegundos" Clicked="TSegundos_Clicked" Text="30 Segundos" FontFamily="BB" TextColor="White" BackgroundColor="#B2264E" Margin="0,0,10,0"/>
+                            <Button x:Name="SSegundos" Clicked="SSegundos_Clicked" Text="60 Segundos" FontFamily="BB" TextColor="White" BackgroundColor="#B2264E" Margin="0,0,10,0"/>
+                            <Button x:Name="NSegundos" Clicked="NSegundos_Clicked" Text="90 Segundos" FontFamily="BB" TextColor="White" BackgroundColor="#B2264E" Margin="0,0,10,0"/>
+                            <Button x:Name="CSegundos" Clicked="CSegundos_Clicked" Text="120 Segundos" FontFamily="BB" TextColor="White" BackgroundColor="#B2264E" Margin="0,0,10,0"/>
+                        </HorizontalStackLayout>
+                        <Label Text="Asignacion activa" FontFamily="BB" FontSize="16" TextColor="Black" />
+                        <Switch x:Name="AsignacionSwitch" IsToggled="False" HorizontalOptions="Start" Toggled="OnAsignacionToggled" />
+
+                        <Label Text="Reasignacion activa" FontFamily="BB" FontSize="16" TextColor="Black" />
+                        <Switch x:Name="ReasignacionSwitch" IsToggled="False" HorizontalOptions="Start" Toggled="OnReasignacionToggled" />
+                        <Border/>
+                        <Label x:Name="TiempoAsig" Text="No hay tiempo de respuesta asignado" FontFamily="BB" FontSize="16" TextColor="Black" />
+                        <Border/>
+                        
+                        <Label Text="Prueba de red" FontFamily="BB" FontSize="16" TextColor="Black"/>
+                        <Grid Padding="20" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*">
+                            <Label Grid.Row="1" Text="Tiempo de Respuesta (ms):" FontSize="18" />
+                            <Label Grid.Row="1" Grid.Column="1" x:Name="ResponseTimeLabel" FontSize="18" TextColor="#1d84ff" />
+
+                            <Label Grid.Row="2" Text="Estado de la Red:" FontSize="18" />
+                            <Label Grid.Row="2" Grid.Column="1" x:Name="NetworkStatusLabel" FontSize="18" TextColor="#1d84ff" />
+
+                            <Button Text="Iniciar Prueba" Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="Center" Margin="0,40,0,-20"
+                                    BackgroundColor="#B2264E"
+                                    Clicked="OnStartTestClicked"/>
+                        </Grid>
+                    </StackLayout>
+
+                </Frame>
+                <Frame Margin="0,10,0,10">
+                    <StackLayout>
+                        <Label Text="Log del sistema" FontFamily="BB"/>
+                         <Frame BackgroundColor="Black" HeightRequest="250">
+                            <CollectionView x:Name="LogView"
+                                            ItemsSource="{Binding LogEntries}"
+                                            BackgroundColor="Black"
+                                            HorizontalOptions="FillAndExpand">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ContentView>
+                                            <Grid Margin="0,0,0,10">
+                                                    <Label Text="{Binding}" TextColor="White" FontFamily="R" FontSize="12" LineHeight="1.2" />
+
+                                            </Grid>
+                                        </ContentView>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                         </Frame>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+
+        </Frame>
+
+
+
+        
+    </Grid>
+
+
+
+
+
+
+
+
+    <Frame x:Name="DemoFCM" IsVisible="False" IsClippedToBounds="True" InputTransparent="True" Opacity=".25" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0">
+            <Grid>
+                <Label Text="Technical Demo - Confidential" FontSize="30" FontFamily="BB" TextColor="Black"/>
+                <Label Text="Technical Demo - Confidential" FontSize="30" FontFamily="BB" TextColor="Black" VerticalOptions="Start" HorizontalOptions="End"/>
+                <Label Text="Technical Demo - Confidential" FontSize="30" FontFamily="BB" TextColor="Black" VerticalOptions="Start" HorizontalOptions="Center"/>
+                <Label Text="Technical Demo - Confidential" FontSize="30" FontFamily="BB" TextColor="Black" VerticalOptions="Center"/>
+                <Label Text="Technical Demo - Confidential" FontSize="30" FontFamily="BB" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Label Text="Technical Demo - Confidential" FontSize="30" FontFamily="BB" TextColor="Black" VerticalOptions="End"/>
+                <Label Text="Technical Demo - Confidential" FontSize="30" FontFamily="BB" TextColor="Black" VerticalOptions="End" HorizontalOptions="Center"/>
+                <Label Text="Technical Demo - Confidential" FontSize="30" FontFamily="BB" TextColor="Black" VerticalOptions="Center" HorizontalOptions="End"/>
+                <Label Text="Technical Demo - Confidential" FontSize="30" FontFamily="BB" TextColor="Black" VerticalOptions="End" HorizontalOptions="End"/>
+            </Grid>
+
+    </Frame>
+
+    </Grid>
+
+</ContentPage>
+
