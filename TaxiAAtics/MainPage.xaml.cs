@@ -285,7 +285,7 @@ public partial class MainPage : ContentPage
                         catch (Exception ex)
                         {
                             Debug.WriteLine($"Line 121: {ex.Message}");
-                            AppendLog($"Ocurrio un error inesperado en la funcion { ex.Message }");
+                            AppendLog($"Ocurrio un error inesperado en la funcion {ex.Message}");
                         }
                     }
                 }
@@ -485,7 +485,7 @@ public partial class MainPage : ContentPage
 
     private async void OnAsignacionToggled(object sender, ToggledEventArgs e)
     {
-        if (e.Value && TiempoAsignado >1)
+        if (e.Value && TiempoAsignado > 1)
         {
             await DisplayAlert("Sistema", "La asignacion ha sido activada con exito", "Aceptar");
             PrimerAsignadoR = true;
@@ -659,7 +659,8 @@ public partial class MainPage : ContentPage
                 // Hacer una copia de la colección GetDrivers
                 var driversFiltrados = new ObservableCollection<Drivers>(GetDrivers.ToList());
 
-                await Device.InvokeOnMainThreadAsync(() => {
+                await Device.InvokeOnMainThreadAsync(() =>
+                {
                     // Actualizar las fuentes de datos de tus vistas con la colección filtrada
                     //DriversIn.ItemsSource = driversFiltrados.Where(x => !x.EnServicio && x.EnEspera && x.Activo);
                     Conductores.ItemsSource = driversFiltrados.Where(x => !x.EnEspera && !x.EnServicio && x.Activo);
@@ -741,21 +742,29 @@ public partial class MainPage : ContentPage
 #pragma warning restore CA1416 // Validar la compatibilidad de la plataforma
                             Debug.Write($"Servicio con el id {srvListC.idService} fue asignado al conductor {drvListC.Nombre} con el id {drvListC.UIDD}\n");
                             Debug.Write($"El conductor {drvListC.Nombre} se puso en espera\n");
+                            AppendLog($"El conductor {drvListC.Nombre} se puso en espera\n");
+
                             var lastDrv = GetDrivers.LastOrDefault(x => x.Activo && !x.EnEspera && !x.EnServicio && x.Localidad == "Lerma" || x.Localidad == "Chiná" || x.Localidad == "San Francisco de Campeche");
                             if (lastDrv != null)
                             {
                                 Debug.Write($"El ultimo conductor en la lista, que se encuentra disponible es {lastDrv.Nombre}\n");
+                                AppendLog($"El ultimo conductor en la lista, que se encuentra disponible es {lastDrv.Nombre}\n");
+
                             }
                         }
                     }
                     else
                     {
                         Debug.Write("No hay conductores disponibles\n");
+                        AppendLog($"No hay conductores disponible en este momento");
+
                     }
                 }
                 else
                 {
                     Debug.Write("No hay conductores activos\n");
+                    AppendLog($"No hay conductores disponible en este momento");
+
                 }
 
             }
@@ -837,6 +846,7 @@ public partial class MainPage : ContentPage
 
                         // Reasignación de servicio en Campeche
                         var sRV_Campeche = GetServices.FirstOrDefault(x => x.idService == documentId && x.Estado.StartsWith("disponible") && !string.IsNullOrWhiteSpace(x.Asignado) && x.RegionId == 2);
+
                         if (sRV_Campeche != null)
                         {
                             var dRsV_Campeche = GetDrivers.FirstOrDefault(x => x.Activo && !x.EnEspera && !x.EnServicio && !x.UIDD.Contains(sRV_Campeche.Asignado) && x.Localidad == "Lerma" || x.Localidad == "Chiná" || x.Localidad == "San Francisco de Campeche");
