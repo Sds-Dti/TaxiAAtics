@@ -8,6 +8,9 @@ Requisitos minimos
 |Quad-Core 2.1Ghz|
 |Ejecutar como unico proceso visible|
 
+![Captura de Pantalla](./ui.jpeg)
+
+
 > [!NOTE]
 > La aplicacion esta hecha solo para ejecutarse en plataformas compatibles con Windows 10 u 11.
 > Por el momento falta la compilacion en Windows, solo se puede ejecutar en emulador de android
