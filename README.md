@@ -3,6 +3,7 @@ Se requiere .NET MAUI instalado para poder compilar y ejecutar
 Requisitos minimos
 |-------------------------|
 |Windows 10.0.19041.0|
+|Android 8.1 para arriba|
 |8GB RAM|
 |Quad-Core 2.1Ghz|
 |Ejecutar como unico proceso visible|
