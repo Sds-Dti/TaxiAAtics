@@ -25,4 +25,4 @@ Requisitos minimos
 > Pueden intentar compilarlo en Windows pero hay que modificar el archivo del proyecto de visual studio para que pueda ser cargado desde el VS de Windows, ya que las direcciones de asignacion de los directorios son diferentes en MAC
 
 > [!CAUTION]
-> La plataforma es estable pero por cualquier situacion o error de procesamiento se puede ver en el apartado de sistema y en el registro de abajo.
+> La plataforma es estable pero por cualquier situacion o error de procesamiento se puede ver en el apartado de automatizacion y en el registro de abajo.
